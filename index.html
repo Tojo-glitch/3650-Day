@@ -1,35 +1,58 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="theme-color" content="#FFD1DC">
-    <title>3650 - 10 Year Anniversary</title>
-
-    <!-- PWA Manifest -->
-    <link rel="manifest" href="manifest.json">
-
-    <!-- React + Babel -->
-    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
-    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
-    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
-
-    <!-- Tailwind CSS -->
+    <title>3650 Days of Love</title>
     <script src="https://cdn.tailwindcss.com"></script>
-
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,900&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
-
-    <!-- CSS -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,600&family=DM+Sans:wght@400;500;700&family=Bodoni+Moda:ital,wght@1,700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
-<body>
-    <div id="root"></div>
+<body onclick="spawnStardust(event)">
 
-    <!-- React App -->
-    <script type="text/babel" src="app.js"></script>
+    <div id="light-burst"></div>
+
+    <!-- PERSISTENT LOGO -->
+    <div class="logo-fixed-wrapper" id="logo-trigger">
+        <div class="logo-container">
+            <div class="logo-shimmer"></div>
+            <div class="logo-text">3650</div>
+        </div>
+    </div>
+
+    <!-- SECRET PAPER REVEAL -->
+    <div class="paper-reveal" id="paper-reveal">
+        <div class="mb-6"><span class="text-4xl">🐰</span></div>
+        <h3 class="text-3xl font-serif italic text-rose-800 mb-8">3,650 Days of Us</h3>
+        <p class="text-rose-600 italic text-xl leading-relaxed mb-12">"You've made every single one of these days brighter than the last. I love you more than words can hold."</p>
+        <button onclick="closeSecret()" class="btn-luxury">Back to Reality</button>
+    </div>
+
+    <!-- PAGE 1: DATE GATE -->
+    <section id="gate" class="screen active justify-between py-16 px-10">
+        <div class="text-center mt-4">
+            <h1 class="text-4xl font-serif font-bold text-rose-800 leading-tight mb-4">A decade of love</h1>
+            <p class="text-[10px] tracking-[0.5em] uppercase text-rose-400 font-bold opacity-80">When did our story begin?</p>
+        </div>
+        <div class="relative h-72 w-full flex">
+            <div class="absolute inset-y-0 left-0 right-0 h-20 top-1/2 -translate-y-1/2 bg-rose-100/30 border-y border-rose-200 pointer-events-none z-10"></div>
+            <div class="flex-1 overflow-y-scroll snap-y snap-mandatory no-scrollbar text-center z-0" id="p-day"></div>
+            <div class="flex-[1.5] overflow-y-scroll snap-y snap-mandatory no-scrollbar text-center z-0" id="p-month"></div>
+            <div class="flex-1 overflow-y-scroll snap-y snap-mandatory no-scrollbar text-center z-0" id="p-year"></div>
+        </div>
+        <div class="flex flex-col items-center gap-8 pb-4">
+            <button onclick="verify()" class="btn-luxury w-full shadow-2xl">Unlock our memory</button>
+            <p id="gate-hint" class="text-rose-300 italic text-xs opacity-0 transition-opacity">Hint: 30 Dec 2015</p>
+        </div>
+    </section>
+
+    <!-- PAGE 2 - 6 -->
+    <section id="gift" class="screen justify-center items-center"></section>
+    <section id="message" class="screen justify-center items-center text-center px-12"></section>
+    <section id="ready" class="screen justify-center items-center px-10 text-center"></section>
+    <section id="chamber" class="screen bg-rose-50/50 overflow-y-auto"></section>
+    <section id="final" class="screen justify-center items-center text-center px-10"></section>
+
+    <script src="script.js"></script>
 </body>
 </html>
