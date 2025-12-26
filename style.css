@@ -1,77 +1,57 @@
-:root {
-    --rose-light: #FFD1DC;
-    --rose-dark: #F43F5E;
-}
-
 body {
     margin: 0;
     font-family: 'DM Sans', sans-serif;
     width: 100vw;
     height: 100vh;
-    background: linear-gradient(180deg, var(--rose-light) 0%, #ffffff 100%);
+    background: linear-gradient(180deg, #FFD1DC 0%, #ffffff 100%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
     overflow: hidden;
-    color: #4a4a4a;
-    position: relative;
 }
 
-.screen { display: none; }
+.screen { display: none; flex-direction: column; align-items: center; justify-content: center; }
 .screen.active { display: flex; }
 
 .logo-fixed-wrapper {
-    position: fixed;
+    position: absolute;
     top: 20px;
-    right: 18px;
-    width: 52px;
-    height: 32px;
-    z-index: 5000;
-}
-.logo-container {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    right: 20px;
     font-family: 'Playfair Display', serif;
-    font-weight: 700;
-    font-size: 1rem;
-}
-
-.btn-luxury {
-    background: white;
-    color: var(--rose-dark);
-    border: 1px solid #e5b3a8;
-    padding: 1.25rem 2.5rem;
-    border-radius: 100px;
-    font-size: 0.75rem;
-    font-weight: 700;
-    letter-spacing: 4px;
-    text-transform: uppercase;
-    box-shadow: 0 10px 30px rgba(229, 179, 168, 0.25);
-    transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-}
-.btn-luxury:active { transform: scale(0.94); }
-
-/* Picker item styles */
-#p-day div, #p-month div, #p-year div {
-    height: 60px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.5rem;
-    color: #f87171;
-    transition: all 0.3s ease;
-}
-#p-day div.active, #p-month div.active, #p-year div.active {
-    color: #b91c1c;
     font-size: 2rem;
     font-weight: bold;
-    transform: scale(1.1);
 }
 
-/* Scroll snap */
-.flex-1 {
+.title-container { text-align: center; margin-bottom: 20px; }
+.title-container h1 { font-family: 'Playfair Display', serif; font-size: 2rem; margin: 0; }
+.title-container p { font-size: 0.8rem; color: #a33; margin: 0; }
+
+.picker-wrapper { display: flex; gap: 10px; margin-bottom: 20px; }
+.picker {
+    width: 60px;
+    height: 200px;
+    overflow-y: scroll;
     scroll-snap-type: y mandatory;
+    border: 1px solid #f5a;
+    border-radius: 10px;
+    text-align: center;
 }
-.flex-1 div {
+.picker div {
+    height: 60px;
+    line-height: 60px;
     scroll-snap-align: center;
+    font-size: 1.2rem;
+    color: #f66;
 }
+.picker div.active { color: #900; font-weight: bold; font-size: 1.5rem; }
+
+.btn-luxury {
+    padding: 10px 20px;
+    border-radius: 50px;
+    border: 1px solid #f77;
+    background: #fff;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+#gate-hint { color: #f99; font-size: 0.7rem; opacity: 0; transition: opacity 0.3s; margin-top: 10px; }
