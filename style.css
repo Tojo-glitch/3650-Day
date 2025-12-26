@@ -1,62 +1,32 @@
 /* BODY + BACKGROUND */
 body, html {
-  margin: 0;
-  padding: 0;
-  width: 100%;
-  height: 100%;
+  margin: 0; padding: 0;
+  width: 100%; height: 100%;
   font-family: 'Playfair Display', serif;
   overflow: hidden;
   background: linear-gradient(to bottom, #FFD1DC, #FFFFFF);
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  display: flex; justify-content: center; align-items: center;
+  position: relative;
 }
 
 /* SCREEN */
-.screen { display: none; opacity: 0; transition: opacity 0.8s ease; }
+.screen { display: none; opacity: 0; height: 100%; width: 100%; flex-direction: column; justify-content: center; align-items: center; transition: opacity 0.8s ease; }
 .screen.active { display: flex; opacity: 1; }
 
-/* LANDING CONTAINER */
-.landing-container {
-  text-align: center;
-  color: #000;
-  animation: fadeIn 1.2s ease-out forwards;
-}
+/* LANDING PAGE */
+.landing-container { text-align: center; animation: fadeIn 1.2s ease-out forwards; }
+.logo-large { font-size: 6rem; margin-bottom: 1rem; font-weight: 700; }
+.landing-text { font-size: 1.5rem; margin-bottom: 2rem; }
+.btn-enter { padding: 1rem 2.5rem; border: 2px solid #000; background: transparent; font-weight: bold; cursor: pointer; transition: 0.3s; }
+.btn-enter:hover { background: #000; color: #FFD1DC; }
 
-/* LOGO */
-.logo {
-  font-size: 6rem;
-  font-weight: 700;
-  letter-spacing: 5px;
-  margin-bottom: 1rem;
-}
+/* LOGO FIXED */
+.logo-fixed-wrapper { position: fixed; top: 20px; right: 20px; width: 60px; height: 40px; z-index: 5000; }
 
-/* LANDING TEXT */
-.landing-text {
-  font-size: 1.5rem;
-  margin-bottom: 2rem;
-  color: #4a4a4a;
-}
+/* PICKER */
+.picker-container { display: flex; justify-content: center; align-items: center; gap: 1rem; margin: 20px 0; height: 200px; }
+.picker { flex: 1; overflow-y: scroll; height: 100%; scroll-snap-type: y mandatory; text-align: center; }
+.picker div { height: 50px; line-height: 50px; scroll-snap-align: center; }
 
-/* ENTER BUTTON */
-.btn-enter {
-  padding: 1rem 2.5rem;
-  border: 2px solid #000;
-  background: transparent;
-  font-size: 1rem;
-  font-weight: bold;
-  letter-spacing: 2px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.btn-enter:hover {
-  background: #000;
-  color: #FFD1DC;
-}
-
-/* FADE-IN ANIMATION */
-@keyframes fadeIn {
-  0% { opacity: 0; transform: translateY(-20px); }
-  100% { opacity: 1; transform: translateY(0); }
-}
+/* ANIMATIONS */
+@keyframes fadeIn { 0% { opacity: 0; transform: translateY(-20px); } 100% { opacity:1; transform: translateY(0);} }
