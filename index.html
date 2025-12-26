@@ -3,48 +3,34 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>3650 Days of Love</title>
+<title>10th Anniversary</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=DM+Sans:wght@400;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 </head>
-<body onclick="spawnStardust(event)">
+<body>
 
 <div id="light-burst"></div>
 
 <!-- Persistent Logo -->
-<div class="logo-fixed-wrapper" id="logo-trigger">
-    <div class="logo-container">
-        <div class="logo-shimmer"></div>
-        <div class="logo-text">3650</div>
+<div class="logo-fixed-wrapper">
+    <div class="logo-container">10</div>
+</div>
+
+<!-- Page 1: Date Picker -->
+<section id="gate" class="screen active">
+    <div class="title-container">
+        <h1>A decade of love</h1>
+        <p>When did our story begin?</p>
     </div>
-</div>
 
-<!-- Secret Paper Reveal -->
-<div class="paper-reveal" id="paper-reveal">
-    <div class="mb-6"><span class="text-4xl">🐰</span></div>
-    <h3 class="text-3xl font-serif italic text-rose-800 mb-8">3,650 Days of Us</h3>
-    <p class="text-rose-600 italic text-xl leading-relaxed mb-12">"You've made every single one of these days brighter than the last. I love you more than words can hold."</p>
-    <button onclick="closeSecret()" class="btn-luxury">Back to Reality</button>
-</div>
+    <div class="picker-wrapper">
+        <div class="picker" id="p-day"></div>
+        <div class="picker" id="p-month"></div>
+        <div class="picker" id="p-year"></div>
+    </div>
 
-<!-- Page 1: Date Gate -->
-<section id="gate" class="screen active flex flex-col justify-between items-center py-16 px-10">
-  <div class="text-center mt-4">
-    <h1 class="text-4xl font-serif font-bold text-rose-800 leading-tight mb-4">A decade of love</h1>
-    <p class="text-[10px] tracking-[0.5em] uppercase text-rose-400 font-bold opacity-80">When did our story begin?</p>
-  </div>
-
-  <div class="relative flex w-full max-w-md h-72 justify-center items-center">
-    <div class="absolute inset-y-0 left-0 right-0 h-20 top-1/2 -translate-y-1/2 bg-rose-100/30 border-y border-rose-200 pointer-events-none z-10 rounded"></div>
-    <div class="flex-1 overflow-y-scroll snap-y snap-mandatory no-scrollbar text-center z-0" id="p-day"></div>
-    <div class="flex-1 overflow-y-scroll snap-y snap-mandatory no-scrollbar text-center z-0" id="p-month"></div>
-    <div class="flex-1 overflow-y-scroll snap-y snap-mandatory no-scrollbar text-center z-0" id="p-year"></div>
-  </div>
-
-  <div class="flex flex-col items-center gap-8 pb-4">
-    <button onclick="verify()" class="btn-luxury w-full shadow-2xl z-20 relative">Unlock our memory</button>
-    <p id="gate-hint" class="text-rose-300 italic text-xs opacity-0 transition-opacity">Hint: 30 Dec 2015</p>
-  </div>
+    <button class="btn-luxury" onclick="verify()">Unlock our memory</button>
+    <p id="gate-hint">Hint: 30 Dec 2015</p>
 </section>
 
 <script src="script.js"></script>
