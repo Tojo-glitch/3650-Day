@@ -1,40 +1,46 @@
 document.addEventListener("DOMContentLoaded", () => {
 
-  const day = document.getElementById("day");
-  const month = document.getElementById("month");
-  const year = document.getElementById("year");
-  const hint = document.getElementById("hint");
+  const dayWheel = document.getElementById("dayWheel");
+  const monthWheel = document.getElementById("monthWheel");
+  const yearWheel = document.getElementById("yearWheel");
   const btn = document.getElementById("unlockBtn");
+  const hint = document.getElementById("hint");
 
-  // Populate day
-  for (let i = 1; i <= 31; i++) {
-    day.innerHTML += `<option value="${i}">${i}</option>`;
+  function buildWheel(el, items) {
+    el.innerHTML = '<div></div><div></div>';
+    items.forEach(v => {
+      const d = document.createElement("div");
+      d.textContent = v;
+      el.appendChild(d);
+    });
+    el.innerHTML += '<div></div><div></div>';
   }
 
-  // Month
-  const months = [
-    "Jan","Feb","Mar","Apr","May","Jun",
-    "Jul","Aug","Sep","Oct","Nov","Dec"
-  ];
-  months.forEach((m, i) => {
-    month.innerHTML += `<option value="${i+1}">${m}</option>`;
-  });
+  buildWheel(dayWheel, [...Array(31)].map((_,i)=>i+1));
+  buildWheel(monthWheel, ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"]);
+  buildWheel(yearWheel, [...Array(16)].map((_,i)=>2010+i));
 
-  // Year
-  for (let y = 2010; y <= 2025; y++) {
-    year.innerHTML += `<option value="${y}">${y}</option>`;
+  function bindScroll(el) {
+    el.addEventListener("scroll", () => {
+      const center = el.scrollTop + el.clientHeight / 2;
+      [...el.children].forEach(c => {
+        const offset = c.offsetTop + c.offsetHeight / 2;
+        c.classList.toggle("active", Math.abs(offset - center) < 18);
+      });
+    });
   }
+
+  [dayWheel, monthWheel, yearWheel].forEach(bindScroll);
 
   btn.addEventListener("click", () => {
-    const d = Number(day.value);
-    const m = Number(month.value);
-    const y = Number(year.value);
+    const d = [...dayWheel.children].find(x=>x.classList.contains("active"))?.textContent;
+    const m = [...monthWheel.children].find(x=>x.classList.contains("active"))?.textContent;
+    const y = [...yearWheel.children].find(x=>x.classList.contains("active"))?.textContent;
 
-    if (d === 30 && m === 12 && y === 2015) {
+    if (d=="30" && m=="Dec" && y=="2015") {
       hint.textContent = "Unlocked 💖";
-      // 👉 ไปหน้าถัดไปในอนาคต
     } else {
-      hint.textContent = "That date feels close… but not yet ✨";
+      hint.textContent = "Almost there… ✨";
     }
   });
 
