@@ -1,58 +1,49 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>3650 Days of Love</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,600&family=DM+Sans:wght@400;500;700&family=Bodoni+Moda:ital,wght@1,700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>10th Anniversary</title>
+
+  <!-- PWA Meta -->
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#FFD1DC">
+  <link rel="apple-touch-icon" href="icons/icon-192.png">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="style.css">
 </head>
 <body onclick="spawnStardust(event)">
 
     <div id="light-burst"></div>
 
-    <!-- PERSISTENT LOGO -->
-    <div class="logo-fixed-wrapper" id="logo-trigger">
-        <div class="logo-container">
-            <div class="logo-shimmer"></div>
-            <div class="logo-text">3650</div>
-        </div>
-    </div>
-
-    <!-- SECRET PAPER REVEAL -->
-    <div class="paper-reveal" id="paper-reveal">
-        <div class="mb-6"><span class="text-4xl">🐰</span></div>
-        <h3 class="text-3xl font-serif italic text-rose-800 mb-8">3,650 Days of Us</h3>
-        <p class="text-rose-600 italic text-xl leading-relaxed mb-12">"You've made every single one of these days brighter than the last. I love you more than words can hold."</p>
-        <button onclick="closeSecret()" class="btn-luxury">Back to Reality</button>
-    </div>
-
-    <!-- PAGE 1: DATE GATE -->
-    <section id="gate" class="screen active justify-between py-16 px-10">
-        <div class="text-center mt-4">
-            <h1 class="text-4xl font-serif font-bold text-rose-800 leading-tight mb-4">A decade of love</h1>
-            <p class="text-[10px] tracking-[0.5em] uppercase text-rose-400 font-bold opacity-80">When did our story begin?</p>
-        </div>
-        <div class="relative h-72 w-full flex">
-            <div class="absolute inset-y-0 left-0 right-0 h-20 top-1/2 -translate-y-1/2 bg-rose-100/30 border-y border-rose-200 pointer-events-none z-10"></div>
-            <div class="flex-1 overflow-y-scroll snap-y snap-mandatory no-scrollbar text-center z-0" id="p-day"></div>
-            <div class="flex-[1.5] overflow-y-scroll snap-y snap-mandatory no-scrollbar text-center z-0" id="p-month"></div>
-            <div class="flex-1 overflow-y-scroll snap-y snap-mandatory no-scrollbar text-center z-0" id="p-year"></div>
-        </div>
-        <div class="flex flex-col items-center gap-8 pb-4">
-            <button onclick="verify()" class="btn-luxury w-full shadow-2xl">Unlock our memory</button>
-            <p id="gate-hint" class="text-rose-300 italic text-xs opacity-0 transition-opacity">Hint: 30 Dec 2015</p>
+    <!-- PWA Landing Page -->
+    <section id="landing" class="screen active justify-center items-center flex-col px-10 text-center">
+        <div class="landing-container">
+            <div class="logo">10</div>
+            <h1 class="landing-text">Celebrating a Decade of Love & Luxury</h1>
+            <button class="btn-enter" onclick="enterSite()">Enter</button>
         </div>
     </section>
 
-    <!-- PAGE 2 - 6 -->
-    <section id="gift" class="screen justify-center items-center"></section>
-    <section id="message" class="screen justify-center items-center text-center px-12"></section>
-    <section id="ready" class="screen justify-center items-center px-10 text-center"></section>
-    <section id="chamber" class="screen bg-rose-50/50 overflow-y-auto"></section>
-    <section id="final" class="screen justify-center items-center text-center px-10"></section>
+    <!-- PAGE 1: DATE GATE -->
+    <section id="gate" class="screen justify-between py-16 px-10">
+        <!-- ใส่โค้ดเดิมของ gate ที่นี่ -->
+    </section>
 
-    <script src="script.js"></script>
+    <!-- PAGE 2: GIFT BOX -->
+    <section id="gift" class="screen justify-center items-center">
+        <!-- โค้ด gift เดิม -->
+    </section>
+
+    <!-- PAGE 3: LOVE MESSAGE -->
+    <section id="message" class="screen justify-center items-center text-center px-12">
+        <!-- โค้ด message เดิม -->
+    </section>
+
+    <script src="app.js"></script>
 </body>
 </html>
