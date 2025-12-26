@@ -1,29 +1,517 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-<title>3650 Days of Love</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>3650 Days of Love</title>
+    
+    <meta name="description" content="A special 10-year anniversary gift.">
+    <meta property="og:title" content="3650 Days of Love">
+    <meta property="og:description" content="Our journey through a decade.">
+    <meta property="og:type" content="website">
 
-<link rel="stylesheet" href="style.css" />
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=DM+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,600&family=DM+Sans:wght@400;500;700&family=Bodoni+Moda:ital,wght@1,700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --blush: #fffafa;
+            --rose-gold: #e5b3a8;
+            --deep-rose: #d65a6d;
+            --luxury-pink: #f43f5e;
+            --gold-foil: linear-gradient(135deg, #d4af37 0%, #f9dcc4 50%, #d4af37 100%);
+            --satin-sheen: linear-gradient(135deg, rgba(255,255,255,0.4) 0%, transparent 50%, rgba(0,0,0,0.1) 100%);
+        }
+
+        * { 
+            -webkit-tap-highlight-color: transparent; 
+            user-select: none; 
+            box-sizing: border-box; 
+        }
+
+        body {
+            background: linear-gradient(180deg, #fffafa 0%, #fce7f3 100%);
+            font-family: 'DM Sans', sans-serif;
+            overflow: hidden;
+            touch-action: none;
+            color: #4a4a4a;
+            position: fixed;
+            width: 100vw; 
+            height: 100vh;
+            margin: 0;
+        }
+
+        /* --- STARDUST --- */
+        .stardust {
+            position: fixed; pointer-events: none; z-index: 9999;
+            border-radius: 50%; opacity: 0; will-change: transform, opacity;
+        }
+
+        .melody-egg {
+            position: absolute; pointer-events: none; z-index: 50;
+            filter: drop-shadow(0 2px 4px rgba(244, 63, 94, 0.2));
+            opacity: 0.4; animation: floatMelody 15s linear infinite;
+        }
+
+        @keyframes floatMelody {
+            0% { transform: translate(-50px, 100vh) rotate(0deg); }
+            100% { transform: translate(110vw, -100px) rotate(360deg); }
+        }
+
+        /* --- LOGO --- */
+        .logo-fixed-wrapper {
+            position: fixed; top: env(safe-area-inset-top, 20px); right: 18px;
+            width: 52px; height: 32px; z-index: 5000;
+        }
+        .logo-container {
+            position: relative; width: 100%; height: 100%;
+            display: flex; align-items: center; justify-content: center;
+            background: var(--gold-foil); background-size: 200% 200%;
+            border-radius: 8px;
+            box-shadow: inset 0 1px 2px rgba(255,255,255,0.8), 0 4px 12px rgba(0,0,0,0.18);
+            animation: logo-breathing 10s ease-in-out infinite;
+        }
+        .logo-text { font-family: 'Playfair Display', serif; font-size: 0.95rem; font-weight: 700; color: #8a6d3b; text-shadow: 0 0.5px 0px #fff; }
+        .logo-shimmer {
+            position: absolute; inset: 0; border-radius: 8px;
+            background: linear-gradient(110deg, transparent 40%, rgba(255,255,255,0.8) 50%, transparent 60%);
+            background-size: 200% 100%; animation: logo-shimmer-sweep 12s infinite;
+        }
+        @keyframes logo-breathing { 0%, 100% { transform: scale(1); filter: brightness(1); } 50% { transform: scale(1.06); filter: brightness(1.1); } }
+        @keyframes logo-shimmer-sweep { 0% { background-position: -200% 0; } 10%, 100% { background-position: 200% 0; } }
+
+        /* --- SCREENS --- */
+        .screen {
+            position: fixed; inset: 0; display: none; opacity: 0;
+            flex-direction: column; transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 100;
+        }
+        .screen.active { display: flex; opacity: 1; }
+
+        /* --- PAPER REVEAL --- */
+        .paper-reveal {
+            position: fixed; inset: 0; background: #fff;
+            background-image: url('https://www.transparenttextures.com/patterns/natural-paper.png');
+            z-index: 5500; display: none; opacity: 0; flex-direction: column; align-items: center; justify-content: center;
+            padding: 40px; text-align: center;
+            transform: translateY(100%);
+            transition: all 0.8s cubic-bezier(0.19, 1, 0.22, 1);
+        }
+        .paper-reveal.active { display: flex; opacity: 1; transform: translateY(0); }
+
+        /* --- GIFT BOX --- */
+        .gift-container { position: relative; width: 280px; height: 320px; perspective: 1500px; display: flex; align-items: flex-end; justify-content: center; }
+        .box-3d { position: relative; width: 220px; height: 220px; transform-style: preserve-3d; transition: transform 0.1s ease-out; }
+        .box-body {
+            position: absolute; bottom: 0; width: 100%; height: 180px;
+            background: linear-gradient(145deg, #f43f5e, #881337);
+            border-radius: 6px; box-shadow: inset 0 0 50px rgba(0,0,0,0.5), 0 25px 50px rgba(0,0,0,0.35);
+        }
+        .box-body::before {
+            content: ""; position: absolute; inset: 0;
+            background: var(--satin-sheen), url('https://www.transparenttextures.com/patterns/vintage-speckle.png');
+            opacity: 0.2;
+        }
+        .box-body::after {
+            content: ""; position: absolute; inset: 0; border: 4px solid transparent;
+            background: var(--gold-foil) border-box;
+            -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: destination-out; mask-composite: exclude;
+            opacity: 0.7;
+        }
+        .box-lid {
+            position: absolute; top: 10px; width: 240px; height: 50px; left: -10px;
+            background: linear-gradient(145deg, #fb7185, #be123c);
+            border-radius: 6px; z-index: 20;
+            box-shadow: 0 12px 24px rgba(0,0,0,0.45), inset 0 2px 5px rgba(255,255,255,0.4);
+            transition: transform 1.8s cubic-bezier(0.19, 1, 0.22, 1);
+        }
+        .ribbon-v { position: absolute; left: 50%; top: -10px; width: 44px; height: calc(100% + 10px); background: #fff; transform: translateX(-50%); background-image: var(--satin-sheen); }
+        .ribbon-h { position: absolute; top: 50%; left: -5px; width: 110%; height: 34px; background: #fff; transform: translateY(-50%); background-image: var(--satin-sheen); }
+        .bow { position: absolute; top: -45px; left: 50%; transform: translateX(-50%); width: 110px; height: 60px; z-index: 30; }
+        .bow-loop { position: absolute; width: 55px; height: 45px; border: 14px solid #fff; border-radius: 50%; background-image: var(--satin-sheen); }
+        .bow-left { left: 0; transform: rotate(-25deg); }
+        .bow-right { right: 0; transform: rotate(25deg); }
+
+        /* --- COUPONS --- */
+        .coupon-stack { width: 100%; display: flex; flex-direction: column; align-items: center; gap: 40px; padding: 40px 0 160px; }
+        .coupon-card {
+            width: 88%; height: 260px; position: relative; border-radius: 24px;
+            overflow: hidden; transition: all 0.8s cubic-bezier(0.2, 1, 0.3, 1);
+            background: white; box-shadow: 0 25px 50px rgba(0,0,0,0.12);
+        }
+        .coupon-overlay {
+            position: absolute; inset: 0; z-index: 10;
+            background: linear-gradient(135deg, rgba(244, 63, 94, 0.98), rgba(136, 19, 55, 0.98));
+            backdrop-filter: blur(16px); display: flex; flex-direction: column; align-items: center; justify-content: center;
+            color: white; transition: all 1s ease;
+        }
+        .coupon-visual { width: 100%; height: 100%; padding: 28px; display: flex; flex-direction: column; background: #fff; }
+        .coupon-visual.flight { background: #f8fbff; border-left: 14px solid #2563eb; }
+        .coupon-visual.cash { border: 5px solid transparent; background-clip: padding-box; background: #fffdf5; position: relative; }
+        .coupon-visual.cash::after { content: ""; position: absolute; inset: -5px; border-radius: inherit; background: var(--gold-foil); z-index: -1; }
+
+        .used-artifact { transform: scale(0.95) !important; filter: grayscale(0.2); }
+        .used-seal {
+            position: absolute; top: 25px; right: 25px; width: 90px; height: 90px;
+            border: 5px double rgba(136, 19, 55, 0.15); border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            color: rgba(136, 19, 55, 0.2); font-weight: 900; font-size: 14px;
+            transform: rotate(-18deg); z-index: 20; letter-spacing: 2px;
+        }
+
+        .btn-luxury {
+            background: white; color: var(--deep-rose); border: 1px solid var(--rose-gold);
+            padding: 1.25rem 2.5rem; border-radius: 100px; font-size: 0.75rem; font-weight: 700;
+            letter-spacing: 4px; text-transform: uppercase; box-shadow: 0 10px 30px rgba(229, 179, 168, 0.25);
+            transition: all 0.4s ease;
+        }
+        .btn-luxury:active { transform: scale(0.94); }
+        .btn-desire { background: linear-gradient(135deg, var(--deep-rose), var(--luxury-pink)); color: white; border: none; }
+        
+        #light-burst { position: fixed; inset: 0; background: white; z-index: 9999; opacity: 0; pointer-events: none; transition: opacity 1s; }
+        .floating-heart { position: absolute; pointer-events: none; animation: floatUp 5s linear infinite; opacity: 0; }
+        
+        @keyframes floatUp {
+            0% { transform: translateY(0) scale(0) rotate(0deg); opacity: 0; }
+            20% { opacity: 0.7; }
+            100% { transform: translateY(-100vh) scale(1.6) rotate(45deg); opacity: 0; }
+        }
+        @keyframes shake { 0%, 100% { transform: translateX(0); } 20% { transform: translateX(-8px); } 40% { transform: translateX(8px); } 60% { transform: translateX(-4px); } 80% { transform: translateX(4px); } }
+
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+    </style>
 </head>
+<body onclick="spawnStardust(event)">
 
-<body>
-<section class="screen active" id="gate">
-  <h1>A decade of love</h1>
-  <p class="subtitle">When did our story begin?</p>
+    <div id="light-burst"></div>
 
-  <div class="picker">
-    <div class="col" id="day"></div>
-    <div class="col" id="month"></div>
-    <div class="col" id="year"></div>
-  </div>
+    <div class="logo-fixed-wrapper" id="logo-trigger">
+        <div class="logo-container">
+            <div class="logo-shimmer"></div>
+            <div class="logo-text">3650</div>
+        </div>
+    </div>
 
-  <button onclick="verify()">Unlock our memory</button>
-  <p id="hint">Hint: 30 Dec 2015</p>
-</section>
+    <div class="paper-reveal" id="paper-reveal">
+        <div class="mb-6 text-4xl">🐰</div>
+        <h3 class="text-3xl font-serif italic text-rose-800 mb-8">3,650 Days of Us</h3>
+        <p class="text-rose-600 italic text-xl leading-relaxed mb-12 px-6">"You've made every single one of these days brighter than the last. I love you more than words can hold."</p>
+        <button onclick="closeSecret()" class="btn-luxury">Back to Reality</button>
+    </div>
 
-<script src="app.js"></script>
+    <section id="gate" class="screen active justify-between py-16 px-10">
+        <div class="text-center mt-4">
+            <h1 class="text-4xl font-serif font-bold text-rose-800 leading-tight mb-4">A decade of love</h1>
+            <p class="text-[10px] tracking-[0.5em] uppercase text-rose-400 font-bold opacity-80">When did our story begin?</p>
+        </div>
+        
+        <div class="relative h-72 w-full flex">
+            <div class="absolute inset-y-0 left-0 right-0 h-20 top-1/2 -translate-y-1/2 bg-rose-100/30 border-y border-rose-200 pointer-events-none z-10"></div>
+            <div class="flex-1 overflow-y-scroll snap-y snap-mandatory no-scrollbar text-center z-0" id="p-day"></div>
+            <div class="flex-[1.5] overflow-y-scroll snap-y snap-mandatory no-scrollbar text-center z-0" id="p-month"></div>
+            <div class="flex-1 overflow-y-scroll snap-y snap-mandatory no-scrollbar text-center z-0" id="p-year"></div>
+        </div>
+
+        <div class="flex flex-col items-center gap-8 pb-4">
+            <button onclick="verify()" class="btn-luxury w-full shadow-2xl">Unlock our memory</button>
+            <p id="gate-hint" class="text-rose-300 italic text-xs opacity-0 transition-opacity">Hint: 30 Dec 2015</p>
+        </div>
+    </section>
+
+    <section id="gift" class="screen justify-center items-center">
+        <div class="text-center mb-16 px-10">
+            <h2 class="text-3xl font-serif text-rose-900 italic opacity-0 transition-all duration-1000" id="gift-title">A Special gift for you 💖</h2>
+        </div>
+        <div class="gift-container" onclick="openBox()">
+            <div class="box-3d" id="box-3d">
+                <div class="box-lid" id="lid">
+                    <div class="ribbon-v"></div>
+                    <div class="ribbon-h"></div>
+                    <div class="bow">
+                        <div class="bow-loop bow-left"></div>
+                        <div class="bow-loop bow-right"></div>
+                    </div>
+                </div>
+                <div class="box-body"></div>
+            </div>
+        </div>
+        <p class="mt-20 text-rose-400 tracking-[0.3em] text-[10px] uppercase font-bold animate-pulse">Tap to Unveil the Magic</p>
+    </section>
+
+    <section id="message" class="screen justify-center items-center text-center px-12">
+        <div id="hearts-bg" class="absolute inset-0 overflow-hidden pointer-events-none"></div>
+        <div class="space-y-16 relative z-10">
+            <p class="m-line opacity-0 translate-y-8 transition-all duration-1000 text-2xl font-serif italic text-rose-900 leading-relaxed">Three thousand, six hundred and fifty days...</p>
+            <p class="m-line opacity-0 translate-y-8 transition-all duration-1000 text-2xl font-serif italic text-rose-900 leading-relaxed">Each one a precious page in our book.</p>
+            <p class="m-line opacity-0 translate-y-8 transition-all duration-1000 text-2xl font-serif italic text-rose-900 leading-relaxed">And I'm still falling for you.</p>
+        </div>
+        <button id="msg-btn" onclick="go('ready')" class="fixed bottom-24 btn-luxury opacity-0 transition-opacity duration-700">Continue</button>
+    </section>
+
+    <section id="ready" class="screen justify-center items-center px-10 text-center">
+        <h2 class="text-3xl font-serif text-rose-800 mb-20 italic leading-relaxed">Are you ready to see your gift?</h2>
+        <button onclick="go('chamber')" class="btn-luxury btn-desire px-14 py-7 scale-110 shadow-rose-200 shadow-2xl">Reveal My Gift 💕</button>
+    </section>
+
+    <section id="chamber" class="screen bg-rose-50/50 overflow-y-auto">
+        <div class="pt-24 pb-10 text-center sticky top-0 bg-rose-50/95 backdrop-blur-xl z-30 border-b border-rose-100/60">
+            <h1 class="text-3xl font-serif text-rose-800 font-bold">The Gift Chamber</h1>
+            <p class="text-[10px] text-rose-400 italic tracking-[0.4em] uppercase font-bold mt-4">Handpicked for you</p>
+        </div>
+
+        <div class="coupon-stack px-6">
+            <div id="card-flight" class="coupon-card" onclick="interactCoupon('flight')">
+                <div class="coupon-overlay" id="overlay-flight">
+                    <span class="text-6xl mb-8">✈️</span>
+                    <p class="text-[10px] tracking-[0.5em] uppercase font-bold">Tap to unveil</p>
+                </div>
+                <div class="coupon-visual flight">
+                    <div class="used-seal hidden">CLAIMED</div>
+                    <div class="flex justify-between items-start mb-10">
+                        <div class="bg-blue-600 text-white text-[9px] px-5 py-1.5 rounded-full font-bold tracking-widest uppercase">First Class</div>
+                        <div class="text-blue-900 font-bold italic text-sm">3650 AIR</div>
+                    </div>
+                    <h3 class="text-4xl font-serif text-slate-800 font-bold mb-2">Flight Ticket</h3>
+                    <p class="text-sm text-slate-500 mb-10 italic">"A round-trip escape to any horizon you wish to explore together."</p>
+                    <div class="mt-auto pt-8 border-t border-dashed border-slate-300 flex justify-between items-end">
+                        <div>
+                            <div class="text-[8px] text-slate-400 uppercase font-bold">Passenger</div>
+                            <div class="text-sm font-bold text-slate-700 font-serif">My Eternal Partner</div>
+                        </div>
+                        <div class="text-right">
+                            <div class="text-[8px] text-slate-400 uppercase font-bold">Date</div>
+                            <div class="text-sm font-bold text-slate-700">ANYTIME</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="card-cash" class="coupon-card" onclick="interactCoupon('cash')">
+                <div class="coupon-overlay" id="overlay-cash">
+                    <span class="text-6xl mb-8">💸</span>
+                    <p class="text-[10px] tracking-[0.5em] uppercase font-bold">Tap to unveil</p>
+                </div>
+                <div class="coupon-visual cash">
+                    <div class="used-seal hidden">CLAIMED</div>
+                    <div class="w-full h-full border-2 border-amber-100 rounded-2xl p-6 flex flex-col items-center justify-center text-center">
+                        <div class="text-amber-600 font-serif italic mb-6 text-xs tracking-[0.4em] uppercase">Private Voucher</div>
+                        <div class="text-rose-900 font-serif font-bold text-5xl mb-3">3,000 THB</div>
+                        <div class="text-rose-900 font-serif italic text-xl mb-8">Cash Voucher</div>
+                        <div class="w-16 h-px bg-amber-200 mb-8"></div>
+                        <p class="text-[9px] text-amber-700 tracking-[0.5em] font-bold">SERIES 10 YEARS</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="chamber-action" class="hidden fixed inset-0 z-[400] bg-rose-950/45 backdrop-blur-xl flex-col items-center justify-end pb-12 px-10">
+            <div class="bg-white w-full p-12 rounded-[3.5rem] text-center shadow-2xl translate-y-20 transition-transform duration-500" id="action-panel">
+                <p class="text-rose-400 italic text-sm mb-12">A token of our 10-year journey.</p>
+                <button id="use-btn" onclick="consumeGift()" class="btn-luxury btn-desire w-full mb-10 py-6 text-sm shadow-xl">Use Gift Ceremony</button>
+                <button onclick="closeAction()" class="text-[9px] tracking-[0.7em] text-rose-300 uppercase font-bold py-2">Return to Chamber</button>
+            </div>
+        </div>
+    </section>
+
+    <section id="final" class="screen justify-center items-center text-center px-10">
+        <h2 class="text-4xl font-serif text-rose-800 mb-12 italic">See you next year 💖</h2>
+        <div class="space-y-10 mb-28">
+            <p class="text-rose-400 italic text-xl leading-relaxed">May our next decade be even<br>more beautiful than the first.</p>
+            <p class="text-rose-300 text-[9px] tracking-[0.6em] font-bold uppercase">Infinite Love • 3650 Days</p>
+        </div>
+        <button onclick="go('chamber')" class="btn-luxury">ย้อนกลับ / Go Back</button>
+    </section>
+
+    <script>
+        const MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+        
+        function populatePicker(id, start, end, format = x => x) {
+            const el = document.getElementById(id);
+            el.innerHTML = '<div class="h-24"></div>';
+            for(let i=start; i<=end; i++) {
+                const div = document.createElement('div');
+                div.className = 'h-20 flex items-center justify-center text-xl text-rose-300 transition-all snap-center font-serif';
+                div.dataset.val = i; div.textContent = format(i);
+                el.appendChild(div);
+            }
+            el.innerHTML += '<div class="h-24"></div>';
+            el.addEventListener('scroll', () => {
+                const center = el.scrollTop + el.clientHeight/2;
+                el.querySelectorAll('[data-val]').forEach(item => {
+                    const offset = Math.abs((item.offsetTop + 40) - center);
+                    if(offset < 40) {
+                        item.classList.add('text-rose-800', 'text-4xl', 'font-bold', 'scale-110');
+                        item.classList.remove('text-rose-300');
+                    } else {
+                        item.classList.remove('text-rose-800', 'text-4xl', 'font-bold', 'scale-110');
+                        item.classList.add('text-rose-300');
+                    }
+                });
+            });
+        }
+
+        populatePicker('p-day', 1, 31);
+        populatePicker('p-month', 1, 12, i => MONTHS[i-1]);
+        populatePicker('p-year', 2010, 2025);
+
+        function getSelected(id) {
+            const el = document.getElementById(id);
+            const center = el.scrollTop + el.clientHeight/2;
+            let val = null;
+            el.querySelectorAll('[data-val]').forEach(item => {
+                if(Math.abs((item.offsetTop + 40) - center) < 40) val = item.dataset.val;
+            });
+            return val;
+        }
+
+        function verify() {
+            const d = getSelected('p-day'), m = getSelected('p-month'), y = getSelected('p-year');
+            if(d == 30 && m == 12 && y == 2015) {
+                document.getElementById('light-burst').style.opacity = '1';
+                setTimeout(() => { go('gift'); document.getElementById('light-burst').style.opacity = '0'; }, 1000);
+            } else {
+                const hint = document.getElementById('gate-hint');
+                hint.style.opacity = '1'; setTimeout(() => hint.style.opacity = '0', 3000);
+            }
+        }
+
+        function openBox() {
+            const lid = document.getElementById('lid');
+            lid.style.transform = 'translateY(-380px) rotateX(-50deg) rotateZ(20deg) scale(0.7)';
+            document.getElementById('gift-title').style.opacity = '1';
+            document.getElementById('gift-title').style.transform = 'translateY(-20px)';
+            if(window.navigator.vibrate) window.navigator.vibrate([60, 150, 60]);
+            setTimeout(() => {
+                document.getElementById('light-burst').style.opacity = '1';
+                setTimeout(() => { go('message'); document.getElementById('light-burst').style.opacity = '0'; }, 1200);
+            }, 2000);
+        }
+
+        let activeGift = null;
+        let giftCount = 0;
+        const revealed = { flight: false, cash: false };
+
+        function interactCoupon(type) {
+            const card = document.getElementById('card-'+type);
+            if(card.classList.contains('used-artifact')) return;
+
+            if(!revealed[type]) {
+                document.getElementById('overlay-'+type).style.opacity = '0';
+                setTimeout(() => {
+                    document.getElementById('overlay-'+type).style.display = 'none';
+                    revealed[type] = true;
+                }, 1000);
+                if(window.navigator.vibrate) window.navigator.vibrate(50);
+            } else {
+                activeGift = type;
+                const panel = document.getElementById('chamber-action');
+                panel.classList.remove('hidden');
+                panel.classList.add('flex');
+                setTimeout(() => document.getElementById('action-panel').style.transform = 'translateY(0)', 100);
+            }
+        }
+
+        function closeAction() {
+            document.getElementById('action-panel').style.transform = 'translateY(100%)';
+            setTimeout(() => document.getElementById('chamber-action').classList.add('hidden'), 500);
+            activeGift = null;
+        }
+
+        function consumeGift() {
+            const btn = document.getElementById('use-btn');
+            btn.style.animation = 'shake 0.6s cubic-bezier(.36,.07,.19,.97) both';
+            if(window.navigator.vibrate) window.navigator.vibrate([40, 40, 80]);
+
+            setTimeout(() => {
+                const card = document.getElementById('card-'+activeGift);
+                spawnStardust({clientX: window.innerWidth/2, clientY: window.innerHeight/2}, 50);
+                card.classList.add('used-artifact');
+                card.querySelector('.used-seal').classList.remove('hidden');
+                giftCount++;
+                btn.style.animation = '';
+                closeAction();
+                if(giftCount >= 2) setTimeout(() => go('final'), 3500);
+            }, 1200);
+        }
+
+        function go(id) {
+            const current = document.querySelector('.screen.active');
+            if(current) {
+                current.style.opacity = '0';
+                current.style.transform = 'scale(0.95) translateY(-20px)';
+            }
+            setTimeout(() => {
+                if(current) current.classList.remove('active');
+                const next = document.getElementById(id);
+                next.classList.add('active');
+                next.style.opacity = '0';
+                next.style.transform = 'scale(1.08)';
+                setTimeout(() => {
+                    next.style.transform = 'scale(1)';
+                    next.style.opacity = '1';
+                }, 50);
+                if(id === 'message') startMessage();
+            }, 800);
+        }
+
+        function spawnStardust(e, count = 10) {
+            const x = e.clientX || (e.touches ? e.touches[0].clientX : window.innerWidth/2);
+            const y = e.clientY || (e.touches ? e.touches[0].clientY : window.innerHeight/2);
+            for(let i=0; i<count; i++) {
+                const s = document.createElement('div');
+                s.className = 'stardust';
+                const size = Math.random() * 6 + 2;
+                s.style.width = size + 'px';
+                s.style.height = size + 'px';
+                s.style.background = ['#f43f5e', '#fb7185', '#f9dcc4', '#d4af37', '#e9d5ff'][Math.floor(Math.random()*5)];
+                s.style.left = x + 'px'; s.style.top = y + 'px';
+                document.body.appendChild(s);
+                const angle = Math.random() * Math.PI * 2;
+                const dist = Math.random() * 140 + 50;
+                s.animate([
+                    {opacity: 1, transform: 'translate(0,0) scale(1)'},
+                    {opacity: 0, transform: `translate(${Math.cos(angle)*dist}px, ${Math.sin(angle)*dist - 120}px) scale(0)`}
+                ], {duration: 1200 + Math.random()*800, easing: 'cubic-bezier(0,0,0.2,1)'}).onfinish = () => s.remove();
+            }
+        }
+
+        function startMessage() {
+            const lines = document.querySelectorAll('.m-line');
+            lines.forEach((l, i) => setTimeout(() => { l.style.opacity = '1'; l.style.transform = 'translateY(0)'; }, i * 3500 + 800));
+            setTimeout(() => document.getElementById('msg-btn').style.opacity = '1', 11000);
+            
+            setInterval(() => {
+                const h = document.createElement('div');
+                h.className = 'floating-heart text-2xl';
+                h.innerHTML = ['💖', '🌸', '✨', '💕', '🌹'][Math.floor(Math.random()*5)];
+                h.style.left = Math.random() * 100 + 'vw';
+                const container = document.getElementById('hearts-bg');
+                if(container) container.appendChild(h);
+                setTimeout(() => h.remove(), 6000);
+            }, 700);
+        }
+
+        // Secret Logo Touch
+        let logoTimer;
+        const logo = document.getElementById('logo-trigger');
+        logo.addEventListener('touchstart', (e) => {
+            logoTimer = setTimeout(() => {
+                if(window.navigator.vibrate) window.navigator.vibrate(100);
+                document.getElementById('paper-reveal').classList.add('active');
+            }, 1500);
+        });
+        logo.addEventListener('touchend', () => clearTimeout(logoTimer));
+        function closeSecret() { document.getElementById('paper-reveal').classList.remove('active'); }
+
+        window.onload = () => {
+            ['p-day', 'p-month', 'p-year'].forEach(id => {
+                const el = document.getElementById(id);
+                el.scrollTop = 1; 
+            });
+        };
+    </script>
 </body>
 </html>
