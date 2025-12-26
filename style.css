@@ -1,70 +1,91 @@
-/* BODY & BACKGROUND */
-body {
+* {
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+}
+
+html, body {
   margin: 0;
-  height: 100vh;
+  padding: 0;
+  height: 100%;
   font-family: 'Playfair Display', serif;
-  background: linear-gradient(to bottom, #FFD1DC, #ffffff);
+  background: linear-gradient(to bottom, #FFD1DC 0%, #ffffff 100%);
   overflow: hidden;
+}
+
+body {
   display: flex;
   justify-content: center;
-  align-items: center;
-  position: relative;
 }
 
 /* LOGO */
 .logo {
   position: fixed;
-  top: 20px;
-  right: 20px;
-  font-size: 4rem;
+  top: env(safe-area-inset-top, 16px);
+  right: 16px;
+  font-size: 22px;
   font-weight: 700;
-  color: black;
+  letter-spacing: 1px;
+  color: #000;
   z-index: 10;
 }
 
-/* LANDING CONTENT */
-.landing {
-  text-align: center;
-  color: #000;
-  z-index: 5;
-}
-
-.landing h1 {
-  font-size: 2rem;
-  letter-spacing: 2px;
-  margin-bottom: 10px;
-}
-
-.landing .subheading {
-  font-size: 1rem;
-  color: #333;
-  margin-bottom: 30px;
-}
-
-/* BUTTON */
-#enter-btn {
-  padding: 12px 28px;
-  font-size: 1rem;
-  font-weight: bold;
-  border: none;
-  border-radius: 50px;
-  background: linear-gradient(45deg, #FFB6C1, #FFC0CB);
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-  cursor: pointer;
-  transition: transform 0.2s, box-shadow 0.3s;
-}
-
-#enter-btn:hover {
-  transform: scale(1.05);
-  box-shadow: 0 6px 16px rgba(0,0,0,0.15);
-}
-
-/* PARTICLE CANVAS */
-#particle-canvas {
-  position: fixed;
-  top:0; left:0;
+/* MAIN */
+.screen {
   width: 100%;
-  height: 100%;
-  pointer-events: none;
-  z-index: 0;
+  max-width: 420px;
+  padding:
+    calc(env(safe-area-inset-top, 20px) + 60px)
+    20px
+    calc(env(safe-area-inset-bottom, 20px) + 40px);
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+}
+
+/* TEXT */
+.title {
+  font-size: 24px;
+  text-align: center;
+}
+
+/* DATE PICKER */
+.date-picker {
+  display: flex;
+  gap: 12px;
+}
+
+select {
+  padding: 10px 12px;
+  font-size: 16px;
+  border-radius: 12px;
+  border: none;
+  background: #fff;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+}
+
+/* CTA */
+.cta {
+  margin-top: 12px;
+  padding: 14px 28px;
+  border-radius: 999px;
+  border: none;
+  font-size: 16px;
+  color: #fff;
+  background: linear-gradient(135deg, #FFB6C1, #FFC0CB);
+  box-shadow: 0 10px 30px rgba(255, 182, 193, 0.6);
+  transition: transform 0.2s ease;
+}
+
+.cta:active {
+  transform: scale(0.95);
+}
+
+/* HINT */
+.hint {
+  font-size: 14px;
+  color: #b34b6b;
+  height: 18px;
 }
