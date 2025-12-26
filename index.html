@@ -16,34 +16,98 @@
   <!-- Styles -->
   <link rel="stylesheet" href="style.css">
 </head>
-<body onclick="spawnStardust(event)">
+<body>
 
-    <div id="light-burst"></div>
+  <!-- LIGHT BURST -->
+  <div id="light-burst"></div>
 
-    <!-- PWA Landing Page -->
-    <section id="landing" class="screen active justify-center items-center flex-col px-10 text-center">
-        <div class="landing-container">
-            <div class="logo">10</div>
-            <h1 class="landing-text">Celebrating a Decade of Love & Luxury</h1>
-            <button class="btn-enter" onclick="enterSite()">Enter</button>
-        </div>
-    </section>
+  <!-- LOGO -->
+  <div class="logo-fixed-wrapper" id="logo-trigger">
+      <div class="logo-container">
+          <div class="logo-shimmer"></div>
+          <div class="logo-text">10</div>
+      </div>
+  </div>
 
-    <!-- PAGE 1: DATE GATE -->
-    <section id="gate" class="screen justify-between py-16 px-10">
-        <!-- ใส่โค้ดเดิมของ gate ที่นี่ -->
-    </section>
+  <!-- LANDING PAGE -->
+  <section id="landing" class="screen active flex-col justify-center items-center">
+    <div class="landing-container">
+      <div class="logo-large">10</div>
+      <h1 class="landing-text">Celebrating a Decade of Love & Luxury</h1>
+      <button class="btn-enter" onclick="enterSite()">Enter</button>
+    </div>
+  </section>
 
-    <!-- PAGE 2: GIFT BOX -->
-    <section id="gift" class="screen justify-center items-center">
-        <!-- โค้ด gift เดิม -->
-    </section>
+  <!-- DATE GATE -->
+  <section id="gate" class="screen flex-col justify-between">
+    <div class="text-center mt-4">
+        <h1 class="text-4xl font-serif font-bold text-rose-800 leading-tight mb-4">A Decade of Love</h1>
+        <p class="text-[10px] tracking-[0.5em] uppercase text-rose-400 font-bold opacity-80">When did our story begin?</p>
+    </div>
+    <div class="picker-container">
+      <div class="picker" id="p-day"></div>
+      <div class="picker" id="p-month"></div>
+      <div class="picker" id="p-year"></div>
+    </div>
+    <div class="flex flex-col items-center gap-8 pb-4">
+      <button onclick="verify()" class="btn-luxury w-full">Unlock our memory</button>
+      <p id="gate-hint" class="text-rose-300 italic text-xs opacity-0 transition-opacity">Hint: 30 Dec 2015</p>
+    </div>
+  </section>
 
-    <!-- PAGE 3: LOVE MESSAGE -->
-    <section id="message" class="screen justify-center items-center text-center px-12">
-        <!-- โค้ด message เดิม -->
-    </section>
+  <!-- GIFT BOX PAGE -->
+  <section id="gift" class="screen justify-center items-center">
+    <div class="text-center mb-16 px-10">
+      <h2 class="text-3xl font-serif text-rose-900 italic opacity-0 transition-all duration-1000" id="gift-title">A Special gift for you 💖</h2>
+    </div>
+    <div class="gift-container" onclick="openBox()">
+      <div class="box-3d" id="box-3d">
+          <div class="box-lid" id="lid">
+              <div class="ribbon-v"></div>
+              <div class="ribbon-h"></div>
+              <div class="bow">
+                  <div class="bow-loop bow-left"></div>
+                  <div class="bow-loop bow-right"></div>
+              </div>
+          </div>
+          <div class="box-body"></div>
+      </div>
+    </div>
+    <p class="mt-20 text-rose-400 tracking-[0.3em] text-[10px] uppercase font-bold animate-pulse">Tap to Unveil the Magic</p>
+  </section>
 
-    <script src="app.js"></script>
+  <!-- LOVE MESSAGE -->
+  <section id="message" class="screen justify-center items-center text-center px-12">
+    <div id="hearts-bg" class="absolute inset-0 overflow-hidden pointer-events-none"></div>
+    <div class="space-y-16 relative z-10">
+        <p class="m-line opacity-0 translate-y-8 transition-all duration-1000 text-2xl font-serif italic text-rose-900">Three thousand, six hundred and fifty days...</p>
+        <p class="m-line opacity-0 translate-y-8 transition-all duration-1000 text-2xl font-serif italic text-rose-900">Each one a precious page in our book.</p>
+        <p class="m-line opacity-0 translate-y-8 transition-all duration-1000 text-2xl font-serif italic text-rose-900">And I'm still falling for you.</p>
+    </div>
+    <button id="msg-btn" onclick="go('ready')" class="fixed bottom-24 btn-luxury opacity-0 transition-opacity duration-700">Continue</button>
+  </section>
+
+  <!-- READY PAGE -->
+  <section id="ready" class="screen justify-center items-center px-10 text-center">
+      <h2 class="text-3xl font-serif text-rose-800 mb-20 italic leading-relaxed">Are you ready to see your gift?</h2>
+      <button onclick="go('chamber')" class="btn-luxury btn-desire px-14 py-7 scale-110 shadow-rose-200 shadow-2xl">Reveal My Gift 💕</button>
+  </section>
+
+  <!-- GIFT CHAMBER PAGE -->
+  <section id="chamber" class="screen bg-rose-50/50 overflow-y-auto">
+    <!-- สามารถนำ code ของ chamber เดิมมาวางได้ตรงนี้ -->
+  </section>
+
+  <!-- FINAL PAGE -->
+  <section id="final" class="screen justify-center items-center text-center px-10">
+      <h2 class="text-4xl font-serif text-rose-800 mb-12 italic">See you next year 💖</h2>
+      <div class="space-y-10 mb-28">
+          <p class="text-rose-400 italic text-xl leading-relaxed">May our next decade be even<br>more beautiful than the first.</p>
+          <p class="text-rose-300 text-[9px] tracking-[0.6em] font-bold uppercase">Infinite Love • 3650 Days</p>
+      </div>
+      <button onclick="go('chamber')" class="btn-luxury">ย้อนกลับ / Go Back</button>
+  </section>
+
+  <script src="app.js"></script>
 </body>
 </html>
