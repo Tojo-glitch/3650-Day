@@ -519,6 +519,85 @@
                 el.scrollTop = 1; 
             });
         };
+        <div id="countdown-overlay" class="fixed inset-0 z-[10000] flex flex-col items-center justify-center bg-[#fce7f3] text-gray-800 p-6 text-center">
+        <div class="max-w-md w-full animate-fadeIn">
+            <h2 class="font-serif text-3xl mb-2 text-pink-600 italic">Our Memories Await</h2>
+            <p class="mb-8 font-light tracking-widest uppercase text-[10px] text-pink-400">Unlocking on Dec 27, 17:00</p>
+            
+            <div class="grid grid-cols-4 gap-4 mb-10">
+                <div class="flex flex-col bg-white/50 p-2 rounded-lg shadow-sm"><span id="days" class="text-3xl font-bold text-gray-700">00</span><span class="text-[9px] uppercase opacity-60">Days</span></div>
+                <div class="flex flex-col bg-white/50 p-2 rounded-lg shadow-sm"><span id="hours" class="text-3xl font-bold text-gray-700">00</span><span class="text-[9px] uppercase opacity-60">Hrs</span></div>
+                <div class="flex flex-col bg-white/50 p-2 rounded-lg shadow-sm"><span id="minutes" class="text-3xl font-bold text-gray-700">00</span><span class="text-[9px] uppercase opacity-60">Mins</span></div>
+                <div class="flex flex-col bg-white/50 p-2 rounded-lg shadow-sm"><span id="seconds" class="text-3xl font-bold text-gray-700">00</span><span class="text-[9px] uppercase opacity-60">Secs</span></div>
+            </div>
+            
+            <div class="text-pink-300">
+                <svg class="w-6 h-6 mx-auto animate-bounce" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" />
+                </svg>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // --- ฟังก์ชัน Countdown (เพิ่มใหม่) ---
+        function updateCountdown() {
+            const target = new Date("December 27, 2025 17:00:00").getTime();
+            const now = new Date().getTime();
+            const diff = target - now;
+
+            if (diff <= 0) {
+                document.getElementById("countdown-overlay").style.display = "none";
+                return;
+            }
+
+            const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            const s = Math.floor((diff % (1000 * 60)) / 1000);
+
+            document.getElementById("days").innerText = d.toString().padStart(2, '0');
+            document.getElementById("hours").innerText = h.toString().padStart(2, '0');
+            document.getElementById("minutes").innerText = m.toString().padStart(2, '0');
+            document.getElementById("seconds").innerText = s.toString().padStart(2, '0');
+        }
+        setInterval(updateCountdown, 1000);
+        updateCountdown();
+
+        // --- โค้ดเดิมของคุณ (Floating Hearts & Logo Logic) ---
+        function startHearts() {
+            setInterval(() => {
+                const h = document.createElement('div');
+                h.className = 'floating-heart text-2xl';
+                h.innerHTML = ['💖', '🌸', '✨', '💕', '🌹'][Math.floor(Math.random()*5)];
+                h.style.left = Math.random() * 100 + 'vw';
+                const container = document.getElementById('hearts-bg');
+                if(container) container.appendChild(h);
+                setTimeout(() => h.remove(), 6000);
+            }, 700);
+        }
+
+        let logoTimer;
+        const logo = document.getElementById('logo-trigger');
+        if(logo) {
+            logo.addEventListener('touchstart', (e) => {
+                logoTimer = setTimeout(() => {
+                    if(window.navigator.vibrate) window.navigator.vibrate(100);
+                    document.getElementById('paper-reveal').classList.add('active');
+                }, 1500);
+            });
+            logo.addEventListener('touchend', () => clearTimeout(logoTimer));
+        }
+
+        function closeSecret() { document.getElementById('paper-reveal').classList.remove('active'); }
+
+        window.onload = () => {
+            startHearts(); // รันหัวใจ
+            ['p-day', 'p-month', 'p-year'].forEach(id => {
+                const el = document.getElementById(id);
+                if(el) el.scrollTop = 1; 
+            });
+        };
     </script>
 </body>
 </html>
