@@ -1,10 +1,10 @@
 {
-  "name": "10th Anniversary",
+  "name": "10th Anniversary Celebration",
   "short_name": "Anniversary",
   "start_url": "/index.html",
   "display": "standalone",
   "background_color": "#FFD1DC",
-  "theme_color": "#FF1F5E",
+  "theme_color": "#FFD1DC",
   "icons": [
     {
       "src": "icon-192.png",
