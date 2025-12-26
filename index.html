@@ -4,34 +4,24 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>10th Anniversary</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=DM+Sans:wght@400;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
+<link rel="manifest" href="manifest.json">
 </head>
 <body>
+<div class="logo">10</div>
+
+<section id="date-gate">
+  <h1>When did our story begin?</h1>
+  <div class="picker-wrapper">
+    <div id="p-day" class="picker"></div>
+    <div id="p-month" class="picker"></div>
+    <div id="p-year" class="picker"></div>
+  </div>
+  <button id="unlock-btn">Unlock Memory</button>
+  <p id="hint">Hint: 30 Dec 2015</p>
+</section>
 
 <div id="light-burst"></div>
-
-<!-- Persistent Logo -->
-<div class="logo-fixed-wrapper">
-    <div class="logo-container">10</div>
-</div>
-
-<!-- Page 1: Date Picker -->
-<section id="gate" class="screen active">
-    <div class="title-container">
-        <h1>A decade of love</h1>
-        <p>When did our story begin?</p>
-    </div>
-
-    <div class="picker-wrapper">
-        <div class="picker" id="p-day"></div>
-        <div class="picker" id="p-month"></div>
-        <div class="picker" id="p-year"></div>
-    </div>
-
-    <button class="btn-luxury" onclick="verify()">Unlock our memory</button>
-    <p id="gate-hint">Hint: 30 Dec 2015</p>
-</section>
 
 <script src="script.js"></script>
 </body>
