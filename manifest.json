@@ -1,18 +1,19 @@
 {
-  "name": "3650 Days of Love",
-  "short_name": "3650Love",
-  "start_url": "index.html",
+  "name": "10th Anniversary",
+  "short_name": "Anniversary",
+  "start_url": "./index.html",
   "display": "standalone",
-  "background_color": "#fffafa",
+  "background_color": "#FFD1DC",
   "theme_color": "#FFD1DC",
+  "description": "Celebrate 10 years of love with our elegant PWA.",
   "icons": [
     {
-      "src": "icon-192.png",
+      "src": "icons/icon-192.png",
       "sizes": "192x192",
       "type": "image/png"
     },
     {
-      "src": "icon-512.png",
+      "src": "icons/icon-512.png",
       "sizes": "512x512",
       "type": "image/png"
     }
