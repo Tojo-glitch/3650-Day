@@ -1,47 +1,48 @@
-document.addEventListener("DOMContentLoaded", () => {
+const MONTHS = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
 
-  const dayWheel = document.getElementById("dayWheel");
-  const monthWheel = document.getElementById("monthWheel");
-  const yearWheel = document.getElementById("yearWheel");
-  const btn = document.getElementById("unlockBtn");
-  const hint = document.getElementById("hint");
+function createPicker(id, values) {
+  const col = document.getElementById(id);
+  const inner = document.createElement("div");
+  inner.className = "col-inner";
 
-  function buildWheel(el, items) {
-    el.innerHTML = '<div></div><div></div>';
-    items.forEach(v => {
-      const d = document.createElement("div");
-      d.textContent = v;
-      el.appendChild(d);
-    });
-    el.innerHTML += '<div></div><div></div>';
-  }
+  let index = 0;
 
-  buildWheel(dayWheel, [...Array(31)].map((_,i)=>i+1));
-  buildWheel(monthWheel, ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"]);
-  buildWheel(yearWheel, [...Array(16)].map((_,i)=>2010+i));
-
-  function bindScroll(el) {
-    el.addEventListener("scroll", () => {
-      const center = el.scrollTop + el.clientHeight / 2;
-      [...el.children].forEach(c => {
-        const offset = c.offsetTop + c.offsetHeight / 2;
-        c.classList.toggle("active", Math.abs(offset - center) < 18);
-      });
-    });
-  }
-
-  [dayWheel, monthWheel, yearWheel].forEach(bindScroll);
-
-  btn.addEventListener("click", () => {
-    const d = [...dayWheel.children].find(x=>x.classList.contains("active"))?.textContent;
-    const m = [...monthWheel.children].find(x=>x.classList.contains("active"))?.textContent;
-    const y = [...yearWheel.children].find(x=>x.classList.contains("active"))?.textContent;
-
-    if (d=="30" && m=="Dec" && y=="2015") {
-      hint.textContent = "Unlocked 💖";
-    } else {
-      hint.textContent = "Almost there… ✨";
-    }
+  values.forEach(v => {
+    const div = document.createElement("div");
+    div.className = "item";
+    div.textContent = v;
+    inner.appendChild(div);
   });
 
-});
+  col.appendChild(inner);
+
+  function render() {
+    inner.style.transform = `translateY(${60 - index * 40}px)`;
+    [...inner.children].forEach((el,i)=>{
+      el.classList.toggle("active", i === index);
+    });
+  }
+
+  col.addEventListener("click", e => {
+    index = (index + 1) % values.length;
+    render();
+  });
+
+  render();
+
+  return () => values[index];
+}
+
+const getDay = createPicker("day", Array.from({length:31},(_,i)=>i+1));
+const getMonth = createPicker("month", MONTHS);
+const getYear = createPicker("year", Array.from({length:16},(_,i)=>2010+i));
+
+function verify() {
+  if (getDay()==30 && getMonth()=="Dec" && getYear()==2015) {
+    alert("ผ่าน! ไปหน้าถัดไปได้แล้ว 🎉");
+  } else {
+    const h = document.getElementById("hint");
+    h.style.opacity = 1;
+    setTimeout(()=>h.style.opacity=0,2000);
+  }
+}
